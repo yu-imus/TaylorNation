@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | SwiftlyThread</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            background-image: url('images/HomePageBG.png');
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1 id="pagetitle">TaylorNation's</h1>
+        <div>
+            <div id="swiftlythread">
+                <h2 id="swiftly">SWIFTLY</h2>
+                <h2 id="thread">Thread</h2>
+            </div>
+        </div>  
+
+        <div class="wrapper">
+            <!-- Registration Form -->
+            <form id="registerForm">
+                <h1>Register</h1>
+                <div class="input-box">
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <div class="login-link">
+                    <p>Already have an account? <a href="/homepage.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+            authDomain: "taylornation.firebaseapp.com",
+            projectId: "taylornation",
+            storageBucket: "taylornation.appspot.com",
+            messagingSenderId: "901238362479",
+            appId: "1:901238362479:web:8623df630573424732989a",
+            measurementId: "G-Y2QK0PFQKE",
+            databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Handle Registration Form Submission
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submit
+
+            // Get values from form fields
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            // Create a new user
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // User created 
+                    const user = userCredential.user;
+                    alert('Registration successful!');
+                    // Redirect to another page or perform other actions
+                    window.location.href = "/homepage.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(`Error: ${errorMessage}`);
+                });
+        });
+    </script>
+</body>
+</html>
