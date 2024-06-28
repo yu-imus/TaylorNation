@@ -1,63 +1,98 @@
 <!DOCTYPE html>
 <html>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home | SwiftlyThread</title>
-        <link rel="stylesheet" href="css/home.css">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        
-        <style>
-            body {
-                background-image: url('images/HomePageBG.png');
-            }
-        </style>
-
-    </head>
-
-  <body>
-        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | SwiftlyThread</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            background-image: url('images/HomePageBG.png');
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 id="pagetitle">TaylorNation's</h1>
         <div>
-            <h1 id="pagetitle">TaylorNation's</h1>
-            <div>
-                <div id="swiftlythread">
-                    <h2 id="swiftly">SWIFTLY</h2>
+            <div id="swiftlythread">
+                <h2 id="swiftly">SWIFTLY</h2>
                 <h2 id="thread">Thread</h2>
-                </div>
-                
-            </div>  
-    
-            <div class="wrapper">
-                <form action="">
-                  <h1>Login</h1>
-                  <div class="input-box">
-                    <input type="text" placeholder="Username" required>
+            </div>
+        </div>  
+        <div class="wrapper">
+            <form id="loginForm">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="text" id="username" placeholder="Username" required>
                     <i class='bx bxs-user'></i>
-                  </div>
-                  <div class="input-box">
-                    <input type="password" placeholder="Password" required>
-                    <i class='bx bxs-lock-alt' ></i>
-                  </div>
-                  <div class="input-box">
-                    <input type="text" placeholder="Choose Theme" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="theme" placeholder="Choose Theme" required>
                     <i class='bx bxs-paint-roll'></i>
-                  </div>
-                  <div class="remember-forgot">
-                    <label><input type="checkbox">Remember Me</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox" id="rememberMe">Remember Me</label>
                     <a href="#">Forgot Password</a>
-                  </div>
-                  <button type="submit" class="btn">Login</button>
-                  <div class="register-link">
-                    <p>Don't have an account? <a href="#">Register</a></p>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="/register.html">Register</a></p>
+                </div>
+            </form>
         </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         
-        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+            authDomain: "taylornation.firebaseapp.com",
+            projectId: "taylornation",
+            storageBucket: "taylornation.appspot.com",
+            messagingSenderId: "901238362479",
+            appId: "1:901238362479:web:8623df630573424732989a",
+            measurementId: "G-Y2QK0PFQKE",
+            databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+        };
 
-  </body>
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submit
 
+            // Get values from form fields
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Sign in the user
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    alert('Login successful!');
+                    // Redirect to another page
+                    window.location.href = "/blogs.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(`Error: ${errorMessage}`);
+                });
+        });
+    </script>
+    
+</body>
 </html>
