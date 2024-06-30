@@ -6,14 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog Title</title>
   <link rel="stylesheet" href="css/TTPDstyle.css">
+  <link rel="icon" href="images/TTPDLlogo.png" type="image/x-icon"/>
 </head>
 <body>
-  <!-- Assuming partials/nav.ejs contains navigation links -->
-  <nav>
+
+    <nav>
+        <div class="site-title" id="site-banner">
+            <a href="/"><h1>THE TORTURED POETS DEPARTMENT</h1></a>
+            <p id="s-title"> - All Is Fair In Love and Poetry - </p>
+        </div>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+        <li><a href="create.html">New Blog</a></li>
+        <li><a href="about.html">About</a></li>
     </ul>
   </nav>
   
@@ -23,18 +28,13 @@
     </div>
 
     <a class="delete" data-doc="1234567890">
-      <img src="/trashcan.svg" alt="delete icon">
+      <img src="images/trashcan.svg" alt="delete icon">
     </a>
 
     <div class="content" id="blogdeets">
       <p>This is a sample blog post body. Replace with actual content.</p>
     </div>
   </div>
-
-  <!-- Assuming partials/footer.ejs contains footer content -->
-  <footer>
-    <p>&copy; 2024 Blog Site</p>
-  </footer>
 
   <script>
     const trashcan = document.querySelector('a.delete');
