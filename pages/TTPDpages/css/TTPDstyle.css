@@ -2,10 +2,27 @@
     body{
       margin: 0;
       font-family: 'Noto Serif', serif;
-      padding-bottom: 100px;
+      height: 100%
     }
 
-    /*site title header*/
+    /* ========== About Page ============= */
+    #aboutBody {
+            background-image: url('../images/TTPDaboutpage.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+    }
+
+    #aboutBody img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* ================================ */
+
+    /* ========= site title header ==========*/
     .site-title h1, p {
       text-align: center;
       padding: 20px;
@@ -16,7 +33,7 @@
       text-transform: none;
     }
     .site-title {
-      margin-bottom: 10px; /* Add margin to separate from ul */
+      margin-bottom: 10px; /* Added margin to separate from ul */
 
     }
 
@@ -31,14 +48,14 @@
     ul li a {
       color: #27241F;;
     }
-    
+    /* =================================== */
 
     /* nav & footer styles */
     nav{
       display: flex;
       flex-direction: column;
       margin-bottom: 50px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 2px solid #27241F;
       text-transform: uppercase;
       background-color: #27241F;
     }
@@ -109,39 +126,52 @@
       position: relative;
     }
 
-            #blog-container{
-              padding: 20px;
-              max-width: 800px;
-              margin: auto;
-          }
+     /*================= blog containers =================*/
+
+    #blogBody {
+      background-image: url("../images/TTPDcreateBlogBG.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .blog-header {
+      text-align: center;
+    }
+
+    #blog-container{
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      }
           
-          /* Styling for each blog group */
-          .blog-group {
-              border: 1px solid #ccc;
-              padding: 15px;
-              margin-bottom: 20px;
-              border-radius: 5px;
-              background-color: #f9f9f9;
-          }
+      /* Styling for each blog group */
+    .blog-group {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      }
           
-          /* Styling for blog titles */
-          .blog-title {
-              margin: 0 0 10px 0;
-              font-size: 24px;
-              color: #333;
-          }
+      /* Styling for blog titles */
+    .blog-title {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+      color: #333;
+      }
           
-          /* Styling for blog bodies */
-          .blog-body {
-              font-size: 16px;
-              color: #666;
-          }
+      /* Styling for blog bodies */
+    .blog-body {
+      font-size: 16px;
+      color: #666;
+     }
           
-          /* Styling for blog snippets */
-          .blog-snippet {
-              font-size: 14px;
-              color: #999;
-          }
+      /* Styling for blog snippets */
+    .blog-snippet {
+      font-size: 14px;
+      color: #999;
+     }
+  /*================= blog containers =================*/ 
 
     .delete{
       position: absolute;
@@ -154,7 +184,7 @@
       cursor: pointer;
       box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
     }
-    /* create styles */
+    /* ================= create blog styles ================= */
     .create-blog form{
       max-width: 400px;
       margin: auto;
@@ -195,18 +225,4 @@
       font-weight: bold;
       text-transform: uppercase;
       background-color: #E0DDD8;
-    }
-    /*about page*/
-    .about h2 {
-      text-align: center;
-    }
-
-    .about p {
-      text-align: justify;
-      text-indent: 50px;
-      align-items: center;
-    }
-
-    #farewell {
-      text-align: right;
     }

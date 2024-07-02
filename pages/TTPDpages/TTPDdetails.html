@@ -22,33 +22,75 @@
     </ul>
   </nav>
   
-  <div class="details content">
-    <div>
-      <h2>Sample Blog Title</h2>
-    </div>
+  <div class="blog-post-container">
+    <div id="blog-post-content" class="blog-post-content"></div>
+</div>
 
-    <a class="delete" data-doc="1234567890">
-      <img src="images/trashcan.svg" alt="delete icon">
-    </a>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref as dbRef, child, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    <div class="content" id="blogdeets">
-      <p>This is a sample blog post body. Replace with actual content.</p>
-    </div>
-  </div>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+        authDomain: "taylornation.firebaseapp.com",
+        projectId: "taylornation",
+        storageBucket: "taylornation.appspot.com",
+        messagingSenderId: "901238362479",
+        appId: "1:901238362479:web:8623df630573424732989a",
+        measurementId: "G-Y2QK0PFQKE",
+        databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+    };
 
-  <script>
-    const trashcan = document.querySelector('a.delete');
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-    trashcan.addEventListener('click', (e) => {
-      const endpoint = `/blogs/${trashcan.dataset.doc}`;
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
 
-      fetch(endpoint, {
-        method: 'DELETE',
-      })
-      .then(response => response.json())
-      .then(data => window.location.href = data.redirect)
-      .catch(err => console.log(err));
-    });
-  </script>
+    function displayBlogPost() {
+        const postId = getQueryParam('id');
+        if (!postId) {
+            console.error('No blog post ID provided in URL');
+            return;
+        }
+
+        const blogPostContent = document.getElementById('blog-post-content');
+        if (!blogPostContent) {
+            console.error('No element found with ID "blog-post-content"');
+            return;
+        }
+
+        const dbReference = dbRef(database, `blogs/${postId}`);
+
+        get(child(dbReference, '/')).then((snapshot) => {
+            if (snapshot.exists()) {
+                const blog = snapshot.val();
+                const title = document.createElement('h1');
+                title.innerText = blog.title;
+                title.classList.add('blog-post-title');
+
+                const snippet = document.createElement('p');
+                snippet.innerText = blog.snippet;
+                snippet.classList.add('blog-post-snippet');
+
+                const body = document.createElement('p');
+                body.innerText = blog.body;
+                body.classList.add('blog-post-body');
+
+                blogPostContent.appendChild(title);
+                blogPostContent.appendChild(snippet);
+                blogPostContent.appendChild(body);
+            } else {
+                console.log('No blog post found with ID:', postId);
+            }
+        }).catch((error) => {
+            console.error('Error fetching blog post:', error);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', displayBlogPost);
+</script>
 </body>
 </html>
