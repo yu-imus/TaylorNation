@@ -160,3 +160,13 @@ body {
     height: 280px;
     margin-right: 5px;
   }
+
+ .T1, .T2 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 5px;
+  }
+
+  .T1:hover, .T2:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  }
