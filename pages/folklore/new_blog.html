@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folklore</title>
+    <link rel="stylesheet" href="folklorestyle.css">
+    <link rel="icon" href="mirrorball.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo-container">
+            <div class="logo">What’s new?</div>
+        </div>
+        <div class="horizontal-line"></div>
+        <div class="nav-links">
+            <a href="blogs.html" class="nav-button">Blogs</a>
+            <a href="new_blog.html" class="nav-button">New Blog</a>
+            <a href="about.html" class="nav-button">About</a>
+        </div>
+    </div>
+    <img src="new_header.png" alt="Header Image" class="header-image">
+    <div class="form-background">
+        <div class="form-container">
+            <form id="blogForm">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="snippet">Snippet:</label>
+                    <input type="text" id="snippet" name="snippet" required>
+                </div>
+                <div class="form-group">
+                    <label for="body">Body:</label>
+                    <textarea id="body" name="body" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+            authDomain: "taylornation.firebaseapp.com",
+            projectId: "taylornation",
+            storageBucket: "taylornation.appspot.com",
+            messagingSenderId: "901238362479",
+            appId: "1:901238362479:web:8623df630573424732989a",
+            measurementId: "G-Y2QK0PFQKE",
+            databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submit
+
+            // Get values from form fields
+            var title = document.getElementById('title').value;
+            var snippet = document.getElementById('snippet').value;
+            var body = document.getElementById('body').value;
+
+            // Reference to your Firebase database
+            const blogsRef = ref(database, 'blogs');
+
+            // Push data to Firebase
+            push(blogsRef, {
+                title: title,
+                snippet: snippet,
+                body: body
+            }).then(function() {
+                // Data successfully submitted
+                alert('Blog entry submitted!');
+                // Optionally, clear the form fields
+                document.getElementById('title').value = '';
+                document.getElementById('snippet').value = '';
+                document.getElementById('body').value = '';
+            }).catch(function(error) {
+                // Handle errors
+                console.error('Error submitting blog entry: ', error);
+                alert('Error submitting blog entry. Please try again.');
+            });
+        }
+
+        // Add event listener to form submit button
+        document.getElementById('blogForm').addEventListener('submit', submitForm);
+    </script>
+</body>
+</html>
