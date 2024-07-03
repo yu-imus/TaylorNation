@@ -148,3 +148,15 @@ body {
   .register-link p a:hover{
     text-decoration: underline;
   }
+
+  .T1 {
+    width: 268px;
+    height: 200px;
+    margin-right: 5px;
+  }
+
+  .T2 {
+    width: 200px;
+    height: 280px;
+    margin-right: 5px;
+  }
