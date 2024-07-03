@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folklore - Blogs</title>
+    <link rel="stylesheet" href="folklorestyle.css">
+    <link rel="icon" href="images/mirrorball.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo-container">
+            <div class="logo">What’s new?</div>
+        </div>
+        <div class="horizontal-line"></div>
+        <div class="nav-links">
+            <a href="blogs.html" class="nav-button">Blogs</a>
+            <a href="new_blog.html" class="nav-button">New Blog</a>
+            <a href="about.html" class="nav-button">About</a>
+        </div>
+    </div>
+    <img src="images/blogs_header.png" alt="Header Image" class="header-image">
+    <div class="blogs-container">
+        <h2>All Blogs</h2>
+        <div id="blog-container" class="blogs-grid"></div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref as dbRef, child, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+            authDomain: "taylornation.firebaseapp.com",
+            projectId: "taylornation",
+            storageBucket: "taylornation.appspot.com",
+            messagingSenderId: "901238362479",
+            appId: "1:901238362479:web:8623df630573424732989a",
+            measurementId: "G-Y2QK0PFQKE",
+            databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to retrieve and display data from Firebase
+        function displayBlogPosts() {
+            const blogContainer = document.getElementById('blog-container');
+
+            if (!blogContainer) {
+                console.error("No element found with ID 'blog-container'");
+                return;
+            }
+
+            const dbReference = dbRef(database, 'blogs');
+
+            get(child(dbReference, '/')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    blogContainer.innerHTML = ''; 
+                    
+                    Object.keys(data).forEach((key) => {
+                        const blog = data[key];
+                        
+                        // Create HTML elements for each blog post
+                        const blogCard = document.createElement('div');
+                        blogCard.classList.add('blog-card');
+                        
+                        const title = document.createElement('h2');
+                        const link = document.createElement('a');
+                        link.href = `blog_post.html?id=${key}`;
+                        link.innerText = blog.title;
+                        link.classList.add('blog-title');
+                        title.appendChild(link);
+                        
+                        const snippet = document.createElement('p');
+                        snippet.innerText = blog.snippet;
+                        snippet.classList.add('blog-snippet');
+                        
+                        const body = document.createElement('p');
+                        body.innerText = blog.body;
+                        body.classList.add('blog-body');
+                        
+                        // Append elements to the blog card
+                        blogCard.appendChild(title);
+                        blogCard.appendChild(snippet);
+                        blogCard.appendChild(body);
+                        
+                        // Append the blog card to the container
+                        blogContainer.appendChild(blogCard);
+                    });
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error("Error fetching blogs: ", error);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", displayBlogPosts);
+    </script>
+</body>
+</html>
