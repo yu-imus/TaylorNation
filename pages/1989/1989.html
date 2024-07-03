@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | TTPD </title>
+  <link rel="stylesheet" href="styles/1989.css">
+  <link rel="icon" href="images/TTPDlogo.png" type="image/x-icon"/>
+</head>
+
+<body id="blogBody">
+  
+  <nav>
+    <div class="site-title" id="site-banner">
+        <a href="/"><h1>1989</h1></a>
+    </div>
+
+    <div class="slideshow-container">
+
+      <!-- Full-width images with number and caption text -->
+      <div class="mySlides fade">
+        <img src="styles/ts1989.jpg" style="width:100%">
+        <div class="text">To love is to live</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <img src="styles/ts.jpg" style="width:100%">
+        <div class="text">Rawrrr</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <img src="styles/taylor.png" style="width:100%">
+        <div class="text">1989!!!!!!!</div>
+      </div>
+    </div>
+
+    <ul>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="create.html">New Blog</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+</nav>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/64LU4c1nfjz1t4VnGhagcg?utm_source=generator&autoplay=1" width="100%" height="400px" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  
+<h2 class="blog-header">ALL BLOGS FROM OUR TTPD RECORDS</h2>
+  
+  <div id="blog-container">
+    <!-- This div container would be the container of the blogs from the database -->
+  </div>
+
+
+  <script type="module">
+ 
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { getDatabase, ref as dbRef, child, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+      authDomain: "taylornation.firebaseapp.com",
+      projectId: "taylornation",
+      storageBucket: "taylornation.appspot.com",
+      messagingSenderId: "901238362479",
+      appId: "1:901238362479:web:8623df630573424732989a",
+      measurementId: "G-Y2QK0PFQKE",
+      databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Function to retrieve and display data from Firebase
+    function displayBlogPosts() {
+      const blogContainer = document.getElementById('blog-container');
+    
+      if (!blogContainer) {
+        console.error("No element found with ID 'blog-container'");
+        return;
+      }
+
+      const dbReference = dbRef(database, 'blogs');
+    
+      get(child(dbReference, '/')).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          blogContainer.innerHTML = ''; // Clear previous content
+              
+          Object.keys(data).forEach((key) => {
+            const blog = data[key];
+                  
+            // Create HTML elements for each blog post
+            const blogLink = document.createElement('a');
+            blogLink.href = `1989details.html?id=${key}`;
+            blogLink.classList.add('blog-link');
+
+            const blogGroup = document.createElement('div');
+            blogGroup.classList.add('blog-group');
+                  
+            const title = document.createElement('h2');
+            title.innerText = blog.title;
+            title.classList.add('blog-title');
+                  
+            const snippet = document.createElement('p');
+            snippet.innerText = blog.snippet;
+            snippet.classList.add('blog-snippet');
+                  
+            // Append elements to the blog group
+            blogGroup.appendChild(title);
+            blogGroup.appendChild(snippet);
+                  
+            // Append the blog group to the blog link
+            blogLink.appendChild(blogGroup);
+
+            // Append the blog link to the container
+            blogContainer.appendChild(blogLink);
+          });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error("Error fetching blogs: ", error);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", displayBlogPosts);
+
+  let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 4000); // Change image every x seconds
+}
+  </script>
+
+  
+
+</body>
+</html>
