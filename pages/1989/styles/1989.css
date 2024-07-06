@@ -1,7 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+@font-face {
+  font-family: 'TaylorSwiftHandwriting';
+  src: url('Taylor\ Swift\ Handwriting.ttf') format('truetype');
+}
     body{
       margin: 0;
-      font-family: 'Noto Serif', serif;
+      font-family: 'TaylorSwiftHandwriting', sans-serif;
       height: 100%;
       width: 100%;
     }
@@ -26,15 +29,17 @@
     /* ========= site title header ==========*/
     .site-title h1, p {
       text-align: center;
-      padding: 20px;
+      padding: 0px;
       color: #E0DDD8;
+      font-family: 'TaylorSwiftHandwriting', sans-serif;
+      font-size: 50px;
     }
     #s-title {
       text-align: center;
       text-transform: none;
     }
     .site-title {
-      margin-bottom: 10px; /* Added margin to separate from ul */
+      margin-bottom: 0px; /* Added margin to separate from ul */
 
     }
 
@@ -103,6 +108,7 @@
     .content{
       margin: 0 113px;
       font-family: 'Courier New', Courier, monospace;
+      padding-bottom: 10px;
     }
 
     #blogdeets {
@@ -137,6 +143,9 @@
 
     .blog-header {
       text-align: center;
+      padding-top: 100px;
+      font-size: 37px;
+      color: black;
     }
 
     #blog-container{
@@ -151,8 +160,7 @@
       padding: 15px;
       margin-bottom: 20px;
       border-radius: 5px;
-      background-color: rgba(255, 255, 255, 0.5);
-      
+      background-color: rgb(255, 255, 255, .9);
       }
           
       /* Styling for blog titles */
@@ -173,6 +181,17 @@
       font-size: 14px;
       color: #999;
      }
+
+     
+     .heart-button {
+      font-size: 24px;
+      color: gray;
+      right: 100px;
+    }
+    
+    .heart-button.liked {
+      color: rgb(12, 146, 255);
+    }
   /*================= blog containers =================*/ 
 
     .delete{
@@ -226,15 +245,18 @@
     .create-blog {
       font-weight: bold;
       text-transform: uppercase;
-      background-color: #E0DDD8;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 50%;
+      margin: auto;
+      border-radius: 30px;
     }
-
 
     * {box-sizing:border-box}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 800px;
+  width: 820px;
   position: relative;
   margin: auto;
   height: 500px;
@@ -275,4 +297,29 @@
   from {opacity: .4}
   to {opacity: 1}
 }
-    
+
+.spotify {
+  width: 1500px;
+  margin: auto;
+}
+
+.New {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 65px;
+  background-color: rgb(255, 255, 255);
+  width: 150px;
+  position:fixed;
+  bottom: 10px;
+  right: 10px;
+  }
+
+  .Add{
+    font-size: 20px;
+  }
+
+  .section {
+    font-size: 30px;
+  }
+
+  
