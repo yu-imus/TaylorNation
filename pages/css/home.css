@@ -150,7 +150,7 @@ body {
   }
 
   .T1 {
-    width: 268px;
+    width: 269px;
     height: 200px;
     margin-right: 5px;
   }
@@ -161,12 +161,29 @@ body {
     margin-right: 5px;
   }
 
- .T1, .T2 {
+  .T1, .T2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-right: 5px;
+    border-radius: 20px;
   }
 
   .T1:hover, .T2:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    transform: scale(1.05); /* Slightly increase the size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a shadow */
+  }
+
+  .meh {
+    color: white;
+    font-family: "PT Serif Caption", serif;
+    font-weight: 500;
+  }
+
+  .timcont {
+    background: transparent;
+    border: 5px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(9px);
+    color: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-left: 75px;
   }
