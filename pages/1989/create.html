@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | TTPD </title>
+  <link rel="stylesheet" href="styles/1989.css">
+  <link rel="icon" href="images/TTPDlogo.png" type="image/x-icon"/>
+</head>
+
+<body id="blogBody">
+  
+  <nav>
+    <div class="site-title" id="site-banner">
+        <a href="/"><h1>1989</h1></a>
+    </div>
+
+    <div class="slideshow-container">
+
+      <!-- Full-width images with number and caption text -->
+      <div class="mySlides fade">
+        <div class="text">To love is to live</div>
+        <img src="styles/ts1989.jpg" style="width:100%">
+        <div class="text">To love is to live</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <img src="styles/ts.jpg" style="width:100%">
+        <div class="text">Rawrrr</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <img src="styles/taylor.png" style="width:100%">
+        <div class="text">1989!!!!!!!</div>
+      </div>
+    </div>
+
+    <ul>
+      <li><a class="section" href="1989.html">Blogs</a></li>
+      <li><a class="section" href="about.html">About</a></li>
+    </ul>
+</nav>
+
+<div class="create-blog content">
+    <h1>- Manuscript Entry -</h1>
+    <form id="blogForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="snippet">Snippet:</label>
+      <input type="text" id="snippet" name="snippet" required>
+      <label for="body">Body:</label>
+      <textarea id="body" name="body" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div><p>hi</p></div>
+
+  <script type="module">
+ 
+     // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDgGiwLhin3e_Vc86_ehos2LVO0WDjuAX8",
+    authDomain: "taylornation.firebaseapp.com",
+    projectId: "taylornation",
+    storageBucket: "taylornation.appspot.com",
+    messagingSenderId: "901238362479",
+    appId: "1:901238362479:web:8623df630573424732989a",
+    measurementId: "G-Y2QK0PFQKE",
+    databaseURL: "https://taylornation-default-rtdb.firebaseio.com/"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const database = getDatabase(app);
+
+  // Function to handle form submission
+  function submitForm(event) {
+    event.preventDefault(); // Prevent the default form submit
+
+    // Get values from form fields
+    var title = document.getElementById('title').value;
+    var snippet = document.getElementById('snippet').value;
+    var body = document.getElementById('body').value;
+
+    // Reference to your Firebase database
+    const blogsRef = ref(database, 'blogs');
+
+    // Push data to Firebase
+    push(blogsRef, {
+      title: title,
+      snippet: snippet,
+      body: body
+    }).then(function() {
+      // Data successfully submitted
+      alert('Blog entry submitted!');
+      // Optionally, clear the form fields
+      document.getElementById('title').value = '';
+      document.getElementById('snippet').value = '';
+      document.getElementById('body').value = '';
+    }).catch(function(error) {
+      // Handle errors
+      console.error('Error submitting blog entry: ', error);
+      alert('Error submitting blog entry. Please try again.');
+    });
+  }
+
+  // Add event listener to form submit button
+  document.getElementById('blogForm').addEventListener('submit', submitForm);
+
+
+  let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 4000); // Change image every x seconds
+}
+  </script>
+
+</body>
+</html>
