@@ -20,6 +20,7 @@
 
       <!-- Full-width images with number and caption text -->
       <div class="mySlides fade">
+        <div class="text">To love is to live</div>
         <img src="styles/ts1989.jpg" style="width:100%">
         <div class="text">To love is to live</div>
       </div>
@@ -36,20 +37,23 @@
     </div>
 
     <ul>
-      <li><a href="blogs.html">Blogs</a></li>
-      <li><a href="create.html">New Blog</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a class="section" href="/">Themes</a></li>
+      <li><a class="section" href="about.html">About</a></li>
     </ul>
 </nav>
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/64LU4c1nfjz1t4VnGhagcg?utm_source=generator&autoplay=1" width="100%" height="400px" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<div class="spotify">
+  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/64LU4c1nfjz1t4VnGhagcg?utm_source=generator&autoplay=1" width="100%" height="400px" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+
   
-<h2 class="blog-header">ALL BLOGS FROM OUR TTPD RECORDS</h2>
-  
+<h2 class="blog-header">ALL BLOGS FROM OUR 1989 RECORDS</h2>
+<div class="New"><a class="Add" href="create.html">🪧New Post</a></div>
   <div id="blog-container">
     <!-- This div container would be the container of the blogs from the database -->
   </div>
 
+ 
 
   <script type="module">
  
@@ -74,59 +78,71 @@
     const database = getDatabase(app);
 
     // Function to retrieve and display data from Firebase
-    function displayBlogPosts() {
-      const blogContainer = document.getElementById('blog-container');
-    
-      if (!blogContainer) {
-        console.error("No element found with ID 'blog-container'");
-        return;
-      }
+    // Function to retrieve and display data from Firebase
+function displayBlogPosts() {
+  const blogContainer = document.getElementById('blog-container');
 
-      const dbReference = dbRef(database, 'blogs');
-    
-      get(child(dbReference, '/')).then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          blogContainer.innerHTML = ''; // Clear previous content
-              
-          Object.keys(data).forEach((key) => {
-            const blog = data[key];
-                  
-            // Create HTML elements for each blog post
-            const blogLink = document.createElement('a');
-            blogLink.href = `1989details.html?id=${key}`;
-            blogLink.classList.add('blog-link');
+  if (!blogContainer) {
+    console.error("No element found with ID 'blog-container'");
+    return;
+  }
 
-            const blogGroup = document.createElement('div');
-            blogGroup.classList.add('blog-group');
-                  
-            const title = document.createElement('h2');
-            title.innerText = blog.title;
-            title.classList.add('blog-title');
-                  
-            const snippet = document.createElement('p');
-            snippet.innerText = blog.snippet;
-            snippet.classList.add('blog-snippet');
-                  
-            // Append elements to the blog group
-            blogGroup.appendChild(title);
-            blogGroup.appendChild(snippet);
-                  
-            // Append the blog group to the blog link
-            blogLink.appendChild(blogGroup);
+  const dbReference = dbRef(database, 'blogs');
 
-            // Append the blog link to the container
-            blogContainer.appendChild(blogLink);
-          });
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error("Error fetching blogs: ", error);
+  get(child(dbReference, '/')).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      blogContainer.innerHTML = ''; // Clear previous content
+
+      Object.keys(data).forEach((key) => {
+        const blog = data[key];
+
+        // Create HTML elements for each blog post
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.classList.add('blog-title');
+        const snippet = document.createElement('summary');
+        snippet.classList.add('blog-snippet');
+        const blogBody = document.createElement('p');
+
+        summary.innerText = blog.title;
+        snippet.innerText = blog.snippet;
+        blogBody.innerText = blog.body;
+
+        // Create a container for the blog and apply the 'blog-group' class
+        const blogGroup = document.createElement('div');
+        blogGroup.classList.add('blog-group');
+        blogGroup.appendChild(details);
+
+        // Append elements to the details
+        details.appendChild(summary);
+        details.appendChild(snippet);
+        details.appendChild(blogBody);
+
+        // heart
+        const heartButton = document.createElement('button');
+        heartButton.classList.add('heart-button');
+        heartButton.innerHTML = '&hearts;';
+        heartButton.addEventListener('click', () => {
+          heartButton.classList.toggle('liked');
+        });
+
+        // Append the heart
+        blogGroup.appendChild(heartButton);
+
+        // Append the blog group to the blog container
+        blogContainer.appendChild(blogGroup);
       });
+    } else {
+      console.log("No data available");
     }
+  }).catch((error) => {
+    console.error("Error fetching blogs: ", error);
+  });
+}
 
-    document.addEventListener("DOMContentLoaded", displayBlogPosts);
+document.addEventListener("DOMContentLoaded", displayBlogPosts);
+
 
   let slideIndex = 0;
 showSlides();
@@ -143,8 +159,6 @@ function showSlides() {
   setTimeout(showSlides, 4000); // Change image every x seconds
 }
   </script>
-
-  
 
 </body>
 </html>
