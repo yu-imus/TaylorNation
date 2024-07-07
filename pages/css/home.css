@@ -175,7 +175,7 @@ body {
 
   .meh {
     color: white;
-    font-family: "PT Serif Caption", serif;
+    text-align: center;
     font-weight: 500;
   }
 
@@ -190,5 +190,7 @@ body {
   }
 
 .dis{
-    color: red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
   }
