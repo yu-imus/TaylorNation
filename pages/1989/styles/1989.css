@@ -96,7 +96,7 @@
       left: 0;
       width: 100%;
       padding: 10px;
-      border-top: 3px solid #3C2F1F;
+      border-top: 3px solid #507ea1;
     }
     h2{
       margin-bottom: 40px;
@@ -107,7 +107,7 @@
     }
     .content{
       margin: 0 113px;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'TaylorSwiftHandwriting', sans-serif;
       padding-bottom: 10px;
     }
 
@@ -230,7 +230,7 @@
     }
     .create-blog button{
       margin: 10px auto;
-      background: #3C2F1F;;
+      background: #507ea1;;
       color: white;
       padding: 6px;
       border: 0;

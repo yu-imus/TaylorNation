@@ -63,7 +63,7 @@
         margin-bottom: 50px;
         border-bottom: 2px solid #27241F;
         text-transform: uppercase;
-        background-color: #27241F;
+        background-color: #507ea1;
       }
       nav ul{
         display: flex;
@@ -72,7 +72,7 @@
         padding: 0;
         margin: 0;
         width: 100%; /* Ensure full width */
-        background-color: #8F8677;
+        background-color: #8ea9be;
       }
       nav li{
         list-style-type: none;
